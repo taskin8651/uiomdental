@@ -194,6 +194,16 @@
     </div>
 @endcan
 
+{{-- HERO SECTION --}}
+@can('hero_section_access')
+    <a href="{{ route('admin.hero-section.index') }}"
+       data-tooltip="Hero Section"
+       class="nav-link {{ request()->is('admin/hero-section*') ? 'active' : '' }}">
+        <i class="fas fa-house-medical nav-icon"></i>
+        <span class="nav-label">Hero Section</span>
+    </a>
+@endcan
+
 {{-- DENTIST PROFILE GROUP --}}
 @can('dentist_profile_section_access')
     @php

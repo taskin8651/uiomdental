@@ -3,6 +3,13 @@
 @section('content')
 
   <!-- HERO START -->
+  @php
+    $hero = $heroSection ?? null;
+    $heroImage = $hero && $hero->getFirstMediaUrl('hero_image')
+        ? $hero->getFirstMediaUrl('hero_image')
+        : asset('assets/img/hero.png');
+  @endphp
+
   <section class="hero-section">
     <div class="hero-bg-shape shape-one"></div>
     <div class="hero-bg-shape shape-two"></div>
@@ -11,19 +18,17 @@
 
       <div class="hero-content">
         <div class="hero-badge">
-          <i class="fa-solid fa-shield-heart"></i>
-          Trusted Dental Care For Your Family
+          <i class="{{ $hero->badge_icon ?? 'fa-solid fa-shield-heart' }}"></i>
+          {{ $hero->badge_text ?? 'Trusted Dental Care For Your Family' }}
         </div>
 
         <h1>
-          Healthy Smile, <br>
-          <span>Confident Life</span>
+          {{ $hero->title ?? 'Healthy Smile,' }} <br>
+          <span>{{ $hero->highlight_title ?? 'Confident Life' }}</span>
         </h1>
 
         <p>
-          Experience gentle, modern and professional dental care at OM Dental Clinic.
-          Book appointments online for consultation, root canal, scaling, implants,
-          braces, smile designing and emergency dental care.
+          {{ $hero->description ?? 'Experience gentle, modern and professional dental care at OM Dental Clinic. Book appointments online for consultation, root canal, scaling, implants, braces, smile designing and emergency dental care.' }}
         </p>
 
         <div class="hero-buttons">
@@ -40,38 +45,38 @@
 
         <div class="hero-stats">
           <div>
-            <strong>10+</strong>
-            <span>Years Experience</span>
+            <strong>{{ $hero->stat_1_number ?? '10+' }}</strong>
+            <span>{{ $hero->stat_1_text ?? 'Years Experience' }}</span>
           </div>
           <div>
-            <strong>5k+</strong>
-            <span>Happy Patients</span>
+            <strong>{{ $hero->stat_2_number ?? '5k+' }}</strong>
+            <span>{{ $hero->stat_2_text ?? 'Happy Patients' }}</span>
           </div>
           <div>
-            <strong>15+</strong>
-            <span>Dental Services</span>
+            <strong>{{ $hero->stat_3_number ?? '15+' }}</strong>
+            <span>{{ $hero->stat_3_text ?? 'Dental Services' }}</span>
           </div>
         </div>
       </div>
 
       <div class="hero-image-area">
         <div class="hero-card floating-card card-top">
-          <i class="fa-solid fa-tooth"></i>
+          <i class="{{ $hero->top_card_icon ?? 'fa-solid fa-tooth' }}"></i>
           <div>
-            <strong>Painless Treatment</strong>
-            <span>Advanced dental care</span>
+            <strong>{{ $hero->top_card_title ?? 'Painless Treatment' }}</strong>
+            <span>{{ $hero->top_card_text ?? 'Advanced dental care' }}</span>
           </div>
         </div>
 
         <div class="hero-image-box">
-          <img src="assets/img/hero.png" alt="Dentist at OM Dental Clinic">
+          <img src="{{ $heroImage }}" alt="{{ $hero->title ?? 'Dentist at OM Dental Clinic' }}">
         </div>
 
         <div class="hero-card floating-card card-bottom">
-          <i class="fa-solid fa-clock"></i>
+          <i class="{{ $hero->bottom_card_icon ?? 'fa-solid fa-clock' }}"></i>
           <div>
-            <strong>Easy Booking</strong>
-            <span>Online appointment</span>
+            <strong>{{ $hero->bottom_card_title ?? 'Easy Booking' }}</strong>
+            <span>{{ $hero->bottom_card_text ?? 'Online appointment' }}</span>
           </div>
         </div>
       </div>
@@ -90,22 +95,65 @@
           <h2>Book your visit with OM Dental Clinic today.</h2>
         </div>
 
-        <form class="quick-form">
-          <input type="text" placeholder="Your Name" required>
-          <input type="tel" placeholder="Mobile Number" required>
-          <select required>
-            <option value="">Select Service</option>
-            <option>Dental Consultation</option>
-            <option>Teeth Cleaning</option>
-            <option>Root Canal Treatment</option>
-            <option>Dental Implant</option>
-            <option>Braces / Orthodontics</option>
-            <option>Emergency Dental Care</option>
-          </select>
-          <button type="submit">
-            Request Callback
-          </button>
-        </form>
+        @if(session('message'))
+    <div class="form-success-message">
+        {{ session('message') }}
+    </div>
+@endif
+
+<form class="quick-form" method="POST" action="{{ route('frontend.appointment') }}">
+    @csrf
+
+    <input type="text"
+           name="name"
+           value="{{ old('name') }}"
+           placeholder="Your Name"
+           required>
+
+    @if($errors->has('name'))
+        <small class="form-error">{{ $errors->first('name') }}</small>
+    @endif
+
+    <input type="tel"
+           name="phone"
+           value="{{ old('phone') }}"
+           placeholder="Mobile Number"
+           required>
+
+    @if($errors->has('phone'))
+        <small class="form-error">{{ $errors->first('phone') }}</small>
+    @endif
+
+    <select name="service" required>
+        <option value="">Select Service</option>
+        <option value="Dental Consultation" {{ old('service') == 'Dental Consultation' ? 'selected' : '' }}>
+            Dental Consultation
+        </option>
+        <option value="Teeth Cleaning" {{ old('service') == 'Teeth Cleaning' ? 'selected' : '' }}>
+            Teeth Cleaning
+        </option>
+        <option value="Root Canal Treatment" {{ old('service') == 'Root Canal Treatment' ? 'selected' : '' }}>
+            Root Canal Treatment
+        </option>
+        <option value="Dental Implant" {{ old('service') == 'Dental Implant' ? 'selected' : '' }}>
+            Dental Implant
+        </option>
+        <option value="Braces / Orthodontics" {{ old('service') == 'Braces / Orthodontics' ? 'selected' : '' }}>
+            Braces / Orthodontics
+        </option>
+        <option value="Emergency Dental Care" {{ old('service') == 'Emergency Dental Care' ? 'selected' : '' }}>
+            Emergency Dental Care
+        </option>
+    </select>
+
+    @if($errors->has('service'))
+        <small class="form-error">{{ $errors->first('service') }}</small>
+    @endif
+
+    <button type="submit">
+        Request Callback
+    </button>
+</form>
       </div>
     </div>
   </section>

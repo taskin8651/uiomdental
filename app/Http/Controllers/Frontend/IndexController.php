@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutPageSection;
 use App\Models\BeforeAfterGallery;
 use App\Models\DentistProfileSection;
+use App\Models\HeroSection;
 use App\Models\ServiceSection;
 use App\Models\Testimonial;
 use App\Models\WebsiteSetting;
@@ -15,6 +16,7 @@ class IndexController extends Controller
     public function index()
     {
         $aboutPageSection = AboutPageSection::with('media')->first();
+        $heroSection = HeroSection::with('media')->first();
         $dentistProfileSection = DentistProfileSection::with('media')->first();
         $beforeAfterGalleries = BeforeAfterGallery::with('media')
             ->where('status', 1)
@@ -35,6 +37,7 @@ class IndexController extends Controller
 
         return view('frontend.index', compact(
             'aboutPageSection',
+            'heroSection',
             'dentistProfileSection',
             'beforeAfterGalleries',
             'serviceSections',

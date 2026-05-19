@@ -50,6 +50,8 @@ Route::resource('service-sections', 'ServiceSectionController');
 Route::get('about-page-section', 'AboutPageSectionController@index')->name('about-page-section.index');
     Route::put('about-page-section', 'AboutPageSectionController@update')->name('about-page-section.update');
     
+Route::get('hero-section', 'HeroSectionController@index')->name('hero-section.index');
+Route::put('hero-section', 'HeroSectionController@update')->name('hero-section.update');
 
     Route::get('dentist-profile-section', 'DentistProfileSectionController@index')->name('dentist-profile-section.index');
 Route::put('dentist-profile-section', 'DentistProfileSectionController@update')->name('dentist-profile-section.update');
