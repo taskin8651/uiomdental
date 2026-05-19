@@ -108,6 +108,49 @@
             </div>
         @endcan
 
+        {{-- SERVICE MANAGEMENT GROUP --}}
+@can('service_section_access')
+    @php
+        $serviceActive = request()->is('admin/service-sections*');
+    @endphp
+
+    <div x-data="{ open: {{ $serviceActive ? 'true' : 'false' }} }">
+
+        <button type="button"
+                @click="open = !open"
+                data-tooltip="Services"
+                class="nav-link nav-group-btn {{ $serviceActive ? 'active' : '' }}">
+
+            <div class="nav-group-left">
+                <i class="fas fa-tooth nav-icon"></i>
+                <span class="nav-label">Service Management</span>
+            </div>
+
+            <i class="fas fa-chevron-right chevron"
+               :style="open ? 'transform:rotate(90deg)' : ''"></i>
+        </button>
+
+        <div class="submenu"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-150"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-100"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1">
+
+            @can('service_section_access')
+                <a href="{{ route('admin.service-sections.index') }}"
+                   class="sub-link {{ request()->is('admin/service-sections*') ? 'active' : '' }}">
+                    <i class="fas fa-notes-medical"></i>
+                    Service Sections
+                </a>
+            @endcan
+
+        </div>
+    </div>
+@endcan
+
         <div class="nav-divider"></div>
 
         <p class="sidebar-section-title compact nav-label">Account</p>

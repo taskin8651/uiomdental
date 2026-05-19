@@ -28,6 +28,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
+    Route::delete('service-sections/destroy', 'ServiceSectionController@massDestroy')->name('service-sections.massDestroy');
+Route::resource('service-sections', 'ServiceSectionController');
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
