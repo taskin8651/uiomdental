@@ -59,6 +59,9 @@ class WebsiteSettingController extends Controller
             'contact_email'    => 'info@omdentalclinic.com',
             'contact_number'   => '+91 99999 99999',
             'whatsapp_number'  => '919999999999',
+            'clinic_address'   => 'Clinic Address Here, Your City, Your State, India',
+            'map_embed_url'    => 'https://www.google.com/maps?q=Delhi,India&output=embed',
+            'map_direction_url' => 'https://www.google.com/maps',
         ];
     }
 }

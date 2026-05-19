@@ -20,7 +20,7 @@
       </p>
 
       <div class="page-breadcrumb">
-        <a href="/index.html">Home</a>
+        <a href="{{ route('frontend.home') }}">Home</a>
         <i class="fa-solid fa-angle-right"></i>
         <span>Gallery</span>
       </div>
@@ -295,8 +295,8 @@
       </div>
 
       <div class="final-actions">
-        <a href="/appointment.html" class="btn btn-light">Book Appointment</a>
-        <a href="https://wa.me/919999999999" target="_blank" class="btn btn-dark">WhatsApp Now</a>
+        <a href="{{ route('frontend.appointment') }}" class="btn btn-light">Book Appointment</a>
+        <a href="{{ $frontendWhatsappAppointmentLink }}" target="_blank" class="btn btn-dark">WhatsApp Now</a>
       </div>
     </div>
   </section>

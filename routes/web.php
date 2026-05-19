@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\ServicesController;
+use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\DentistController;
 use App\Http\Controllers\Frontend\GalleryController;
@@ -15,7 +16,7 @@ use App\Http\Controllers\Frontend\FaqController;
 
 
 
-Route::redirect('/', '/login');
+Route::get('/', [IndexController::class, 'index'])->name('frontend.home');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -94,20 +95,31 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 });
 
 
+Route::get('/index', [IndexController::class, 'index'])->name('frontend.index');
+Route::get('/index.html', [IndexController::class, 'index']);
+
 Route::get('/services', [ServicesController::class, 'index'])->name('frontend.services.index');
+Route::get('/services.html', [ServicesController::class, 'index']);
 
 Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
+Route::get('/about.html', [AboutController::class, 'index']);
 
 
 Route::get('/dentist-profile', [DentistController::class, 'index'])->name('frontend.dentist-profile');
+Route::get('/dentist-profile.html', [DentistController::class, 'index']);
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('frontend.gallery');
+Route::get('/gallery.html', [GalleryController::class, 'index']);
 
 
 Route::get('/testimonials', [TestimonialController::class, 'index'])->name('frontend.testimonials');
+Route::get('/testimonials.html', [TestimonialController::class, 'index']);
 
 
 Route::get('/faq', [FaqController::class, 'index'])->name('frontend.faq');
+Route::get('/faq.html', [FaqController::class, 'index']);
+Route::get('/faqs', [FaqController::class, 'index']);
+Route::get('/faqs.html', [FaqController::class, 'index']);
 
 Route::view('/contact', 'frontend.contact')->name('frontend.contact');
 Route::view('/appointment', 'frontend.appointment')->name('frontend.appointment');

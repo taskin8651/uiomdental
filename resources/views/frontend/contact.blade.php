@@ -2,6 +2,19 @@
 @extends('frontend.master')
 @section('content')
 
+@php
+  $contactSetting = \App\Models\WebsiteSetting::first();
+  $contactNumber = $contactSetting->contact_number ?? '+91 99999 99999';
+  $contactEmail = $contactSetting->contact_email ?? 'info@omdentalclinic.com';
+  $whatsappNumber = $contactSetting->whatsapp_number ?? '919999999999';
+  $clinicAddress = $contactSetting->clinic_address ?? 'Clinic Address Here, Your City, Your State, India';
+  $mapEmbedUrl = $contactSetting->map_embed_url ?? 'https://www.google.com/maps?q=Delhi,India&output=embed';
+  $mapDirectionUrl = $contactSetting->map_direction_url ?? 'https://www.google.com/maps';
+  $contactSiteName = $contactSetting->site_name ?? 'OM Dental Clinic';
+  $callLink = 'tel:' . preg_replace('/\s+/', '', $contactNumber);
+  $whatsappLink = 'https://wa.me/' . preg_replace('/\D+/', '', $whatsappNumber);
+@endphp
+
   <!-- CONTACT HERO START -->
   <section class="contact-page-hero">
     <div class="contact-hero-shape shape-one"></div>
@@ -21,7 +34,7 @@
       </p>
 
       <div class="page-breadcrumb">
-        <a href="/index.html">Home</a>
+        <a href="{{ route('frontend.home') }}">Home</a>
         <i class="fa-solid fa-angle-right"></i>
         <span>Contact</span>
       </div>
@@ -48,32 +61,32 @@
 
       <div class="contact-info-grid">
 
-        <a href="tel:+919999999999" class="contact-info-card">
+        <a href="{{ $callLink }}" class="contact-info-card">
           <i class="fa-solid fa-phone-volume"></i>
           <span>Call Us</span>
-          <h3>+91 99999 99999</h3>
+          <h3>{{ $contactNumber }}</h3>
           <p>Speak with our clinic team for appointment or emergency help.</p>
         </a>
 
-        <a href="https://wa.me/919999999999" target="_blank" class="contact-info-card">
+        <a href="{{ $whatsappLink }}" target="_blank" class="contact-info-card">
           <i class="fa-brands fa-whatsapp"></i>
           <span>WhatsApp</span>
           <h3>Chat With Us</h3>
           <p>Send your query directly and get quick appointment support.</p>
         </a>
 
-        <a href="mailto:info@omdentalclinic.com" class="contact-info-card">
+        <a href="mailto:{{ $contactEmail }}" class="contact-info-card">
           <i class="fa-solid fa-envelope-open-text"></i>
           <span>Email</span>
-          <h3>info@omdentalclinic.com</h3>
+          <h3>{{ $contactEmail }}</h3>
           <p>Share treatment queries, appointment requests or feedback.</p>
         </a>
 
-        <a href="https://www.google.com/maps" target="_blank" class="contact-info-card">
+        <a href="{{ $mapDirectionUrl }}" target="_blank" class="contact-info-card">
           <i class="fa-solid fa-location-dot"></i>
           <span>Clinic Address</span>
-          <h3>Your Clinic Address</h3>
-          <p>OM Dental Clinic, Your City, Your State, India.</p>
+          <h3>{{ $contactSiteName }}</h3>
+          <p>{{ $clinicAddress }}</p>
         </a>
 
       </div>
@@ -181,7 +194,7 @@
 
             <li>
               <span>Emergency Call</span>
-              <strong>+91 99999 99999</strong>
+              <strong>{{ $contactNumber }}</strong>
             </li>
           </ul>
         </div>
@@ -195,11 +208,11 @@
           </p>
 
           <div class="contact-help-actions">
-            <a href="/tel:+919999999999" class="btn btn-primary">
+            <a href="{{ $callLink }}" class="btn btn-primary">
               Call Emergency
             </a>
 
-            <a href="https://wa.me/919999999999" target="_blank" class="btn btn-outline">
+            <a href="{{ $whatsappLink }}" target="_blank" class="btn btn-outline">
               WhatsApp
             </a>
           </div>
@@ -226,16 +239,16 @@
 
       <div class="contact-map-box">
         <iframe
-          src="https://www.google.com/maps?q=Delhi,India&output=embed"
+          src="{{ $mapEmbedUrl }}"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
 
         <div class="contact-map-info">
-          <h3>OM Dental Clinic</h3>
-          <p>Clinic Address Here, Your City, Your State, India</p>
+          <h3>{{ $contactSiteName }}</h3>
+          <p>{{ $clinicAddress }}</p>
 
-          <a href="https://www.google.com/maps" target="_blank" class="btn btn-outline">
+          <a href="{{ $mapDirectionUrl }}" target="_blank" class="btn btn-outline">
             <i class="fa-solid fa-location-arrow"></i>
             Get Directions
           </a>
@@ -256,8 +269,8 @@
       </div>
 
       <div class="final-actions">
-        <a href="/about.html" class="btn btn-light">Book Appointment</a>
-        <a href="https://wa.me/919999999999" target="_blank" class="btn btn-dark">WhatsApp Now</a>
+        <a href="{{ route('frontend.appointment') }}" class="btn btn-light">Book Appointment</a>
+        <a href="{{ $frontendWhatsappAppointmentLink }}" target="_blank" class="btn btn-dark">WhatsApp Now</a>
       </div>
     </div>
   </section>

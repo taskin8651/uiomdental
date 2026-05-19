@@ -30,11 +30,11 @@
     $specializationValue = $dentist->specialization_value ?? 'Root Canal, Cosmetic Dentistry';
 
     $button1Text = $dentist->button_1_text ?? 'Book Appointment';
-    $button1Url = $dentist->button_1_url ?? '/appointment.html';
+    $button1Url = $dentist->button_1_url ?? route('frontend.appointment');
     $button1Icon = $dentist->button_1_icon ?? 'fa-solid fa-calendar-check';
 
     $button2Text = $dentist->button_2_text ?? 'Call Now';
-    $button2Url = $dentist->button_2_url ?? 'tel:+919999999999';
+    $button2Url = $dentist->button_2_url ?? $frontendCallLink;
     $button2Icon = $dentist->button_2_icon ?? 'fa-solid fa-phone-volume';
 @endphp
 
@@ -403,7 +403,7 @@
                     </div>
                 </div>
 
-                <a href="/appointment.html" class="btn btn-primary">
+                <a href="{{ route('frontend.appointment') }}" class="btn btn-primary">
                     <i class="fa-solid fa-calendar-check"></i>
                     Book Appointment
                 </a>
@@ -572,12 +572,12 @@
                 </div>
 
                 <div class="short-bio-actions">
-                    <a href="/about.html" class="btn btn-primary">
+                    <a href="{{ route('frontend.appointment') }}" class="btn btn-primary">
                         <i class="fa-solid fa-calendar-check"></i>
                         Book Appointment
                     </a>
 
-                    <a href="/tel:+919999999999" class="btn btn-outline">
+                    <a href="{{ $frontendCallLink }}" class="btn btn-outline">
                         <i class="fa-solid fa-phone-volume"></i>
                         Call Now
                     </a>
@@ -608,12 +608,12 @@
                 </p>
 
                 <div class="consultation-actions">
-                    <a href="/appointment.html" class="btn btn-primary">
+                    <a href="{{ route('frontend.appointment') }}" class="btn btn-primary">
                         <i class="fa-solid fa-calendar-check"></i>
                         Book Appointment
                     </a>
 
-                    <a href="/tel:+919999999999" class="btn btn-outline">
+                    <a href="{{ $frontendCallLink }}" class="btn btn-outline">
                         <i class="fa-solid fa-phone-volume"></i>
                         Call Clinic
                     </a>

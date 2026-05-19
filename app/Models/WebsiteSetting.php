@@ -25,6 +25,9 @@ class WebsiteSetting extends Model implements HasMedia
         'contact_email',
         'contact_number',
         'whatsapp_number',
+        'clinic_address',
+        'map_embed_url',
+        'map_direction_url',
     ];
 
     protected $dates = [

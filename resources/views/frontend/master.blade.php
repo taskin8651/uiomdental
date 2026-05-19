@@ -16,8 +16,13 @@
   $contactNumber = $websiteSetting->contact_number ?? '+91 99999 99999';
   $contactEmail = $websiteSetting->contact_email ?? 'info@omdentalclinic.com';
   $whatsappNumber = $websiteSetting->whatsapp_number ?? '919999999999';
+  $clinicAddress = $websiteSetting->clinic_address ?? 'Clinic Address Here, Your City, Your State, India';
   $callLink = 'tel:' . preg_replace('/\s+/', '', $contactNumber);
   $whatsappLink = 'https://wa.me/' . preg_replace('/\D+/', '', $whatsappNumber);
+  $footerServices = \App\Models\ServiceSection::where('status', 1)
+      ->orderBy('sort_order', 'asc')
+      ->take(4)
+      ->get();
 @endphp
 
 <head>
@@ -52,19 +57,19 @@
   <header class="site-header" id="siteHeader">
     <div class="container header-wrapper">
 
-      <a href="/" class="logo-link" aria-label="{{ $siteName }} Home">
+      <a href="{{ route('frontend.home') }}" class="logo-link" aria-label="{{ $siteName }} Home">
         <img src="{{ $logoUrl }}" alt="{{ $siteName }} Logo" class="logo" />
       </a>
 
       <nav class="navbar" id="navbar">
-        <a href="/" class="active">Home</a>
-        <a href="about.html">About</a>
-        <a href="dentist-profile.html">Dentist</a>
-        <a href="services.html">Services</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="testimonials.html">Testimonials</a>
-        <a href="faqs.html">FAQs</a>
-        <a href="contact.html">Contact</a>
+        <a href="{{ route('frontend.home') }}" class="{{ request()->routeIs('frontend.home', 'frontend.index') || request()->is('index', 'index.html') ? 'active' : '' }}">Home</a>
+        <a href="{{ route('frontend.about') }}" class="{{ request()->routeIs('frontend.about') || request()->is('about.html') ? 'active' : '' }}">About</a>
+        <a href="{{ route('frontend.dentist-profile') }}" class="{{ request()->routeIs('frontend.dentist-profile') || request()->is('dentist-profile.html') ? 'active' : '' }}">Dentist</a>
+        <a href="{{ route('frontend.services.index') }}" class="{{ request()->routeIs('frontend.services.index') || request()->is('services.html') ? 'active' : '' }}">Services</a>
+        <a href="{{ route('frontend.gallery') }}" class="{{ request()->routeIs('frontend.gallery') || request()->is('gallery.html') ? 'active' : '' }}">Gallery</a>
+        <a href="{{ route('frontend.testimonials') }}" class="{{ request()->routeIs('frontend.testimonials') || request()->is('testimonials.html') ? 'active' : '' }}">Testimonials</a>
+        <a href="{{ route('frontend.faq') }}" class="{{ request()->routeIs('frontend.faq') || request()->is('faq.html', 'faqs', 'faqs.html') ? 'active' : '' }}">FAQs</a>
+        <a href="{{ route('frontend.contact') }}" class="{{ request()->routeIs('frontend.contact') || request()->is('contact.html') ? 'active' : '' }}">Contact</a>
       </nav>
 
       <div class="header-actions">
@@ -73,7 +78,7 @@
           <span>Call Now</span>
         </a>
 
-        <a href="/appointment.html" class="btn btn-primary">
+        <a href="{{ route('frontend.appointment') }}" class="btn btn-primary">
           Book Appointment
         </a>
 
@@ -105,25 +110,29 @@
 
       <div>
         <h4>Quick Links</h4>
-        <a href="/about.html">About Clinic</a>
-        <a href="/dentist-profile.html">Dentist Profile</a>
-        <a href="/services.html">Services</a>
-        <a href="/appointment.html">Book Appointment</a>
+        <a href="{{ route('frontend.about') }}">About Clinic</a>
+        <a href="{{ route('frontend.dentist-profile') }}">Dentist Profile</a>
+        <a href="{{ route('frontend.services.index') }}">Services</a>
+        <a href="{{ route('frontend.appointment') }}">Book Appointment</a>
       </div>
 
       <div>
         <h4>Services</h4>
-        <a href="#">Root Canal</a>
-        <a href="#">Teeth Cleaning</a>
-        <a href="#">Dental Implants</a>
-        <a href="#">Smile Designing</a>
+        @forelse($footerServices as $footerService)
+          <a href="{{ route('frontend.services.index') }}">{{ $footerService->title }}</a>
+        @empty
+          <a href="{{ route('frontend.services.index') }}">Root Canal</a>
+          <a href="{{ route('frontend.services.index') }}">Teeth Cleaning</a>
+          <a href="{{ route('frontend.services.index') }}">Dental Implants</a>
+          <a href="{{ route('frontend.services.index') }}">Smile Designing</a>
+        @endforelse
       </div>
 
       <div>
         <h4>Contact</h4>
         <p><i class="fa-solid fa-phone"></i> {{ $contactNumber }}</p>
         <p><i class="fa-solid fa-envelope"></i> {{ $contactEmail }}</p>
-        <p><i class="fa-solid fa-location-dot"></i> Your Clinic Address</p>
+        <p><i class="fa-solid fa-location-dot"></i> {{ $clinicAddress }}</p>
       </div>
 
     </div>

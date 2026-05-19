@@ -21,7 +21,7 @@
       </p>
 
       <div class="page-breadcrumb">
-        <a href="/index.html">Home</a>
+        <a href="{{ route('frontend.home') }}">Home</a>
         <i class="fa-solid fa-angle-right"></i>
         <span>Appointment</span>
       </div>
@@ -180,11 +180,11 @@
           </p>
 
           <div class="appointment-help-actions">
-            <a href="/tel:+919999999999" class="btn btn-primary">
+            <a href="{{ $frontendCallLink }}" class="btn btn-primary">
               Call Emergency
             </a>
 
-            <a href="https://wa.me/919999999999" target="_blank" class="btn btn-outline">
+            <a href="{{ $frontendWhatsappAppointmentLink }}" target="_blank" class="btn btn-outline">
               WhatsApp
             </a>
           </div>
@@ -306,8 +306,8 @@
       </div>
 
       <div class="final-actions">
-        <a href="tel:+919999999999" class="btn btn-light">Call Clinic</a>
-        <a href="https://wa.me/919999999999" target="_blank" class="btn btn-dark">WhatsApp Now</a>
+        <a href="{{ $frontendCallLink }}" class="btn btn-light">Call Clinic</a>
+        <a href="{{ $frontendWhatsappAppointmentLink }}" target="_blank" class="btn btn-dark">WhatsApp Now</a>
       </div>
     </div>
   </section>

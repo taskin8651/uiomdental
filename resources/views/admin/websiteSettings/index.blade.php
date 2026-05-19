@@ -174,6 +174,50 @@
                         Use country code without plus sign for WhatsApp links.
                     </p>
                 </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="clinic_address">Clinic Address</label>
+                    <textarea name="clinic_address"
+                              id="clinic_address"
+                              rows="4"
+                              placeholder="Clinic Address Here, Your City, Your State, India"
+                              class="field-textarea {{ $errors->has('clinic_address') ? 'error' : '' }}">{{ old('clinic_address', $websiteSetting->clinic_address) }}</textarea>
+                    @if($errors->has('clinic_address'))
+                        <p class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $errors->first('clinic_address') }}</p>
+                    @endif
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="map_embed_url">Google Map Embed URL</label>
+                    <textarea name="map_embed_url"
+                              id="map_embed_url"
+                              rows="4"
+                              placeholder="https://www.google.com/maps?q=Delhi,India&output=embed"
+                              class="field-textarea {{ $errors->has('map_embed_url') ? 'error' : '' }}">{{ old('map_embed_url', $websiteSetting->map_embed_url) }}</textarea>
+                    @if($errors->has('map_embed_url'))
+                        <p class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $errors->first('map_embed_url') }}</p>
+                    @endif
+                    <p class="field-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Paste Google Maps embed iframe src URL here.
+                    </p>
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="map_direction_url">Map Direction URL</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-map-location-dot icon"></i>
+                        <input type="text"
+                               name="map_direction_url"
+                               id="map_direction_url"
+                               value="{{ old('map_direction_url', $websiteSetting->map_direction_url) }}"
+                               placeholder="https://www.google.com/maps"
+                               class="field-input {{ $errors->has('map_direction_url') ? 'error' : '' }}">
+                    </div>
+                    @if($errors->has('map_direction_url'))
+                        <p class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $errors->first('map_direction_url') }}</p>
+                    @endif
+                </div>
             </div>
         </div>
 
