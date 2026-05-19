@@ -6,6 +6,8 @@ use App\Http\Controllers\Frontend\DentistController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\TestimonialController;
 
+use App\Http\Controllers\Frontend\FaqController;
+
 
 
 
@@ -61,6 +63,9 @@ Route::resource('before-after-galleries', 'BeforeAfterGalleryController');
 
 Route::delete('testimonials/destroy', 'TestimonialController@massDestroy')->name('testimonials.massDestroy');
 Route::resource('testimonials', 'TestimonialController');
+
+Route::delete('faqs/destroy', 'FaqController@massDestroy')->name('faqs.massDestroy');
+    Route::resource('faqs', 'FaqController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -84,3 +89,6 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('frontend.gall
 
 
 Route::get('/testimonials', [TestimonialController::class, 'index'])->name('frontend.testimonials');
+
+
+Route::get('/faq', [FaqController::class, 'index'])->name('frontend.faq');

@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Models;
+
+use DateTimeInterface;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Faq extends Model
+{
+    use SoftDeletes;
+
+    public $table = 'faqs';
+
+    protected $fillable = [
+        'question',
+        'answer',
+        'sort_order',
+        'is_open',
+        'status',
+    ];
+
+    protected $casts = [
+        'is_open' => 'boolean',
+        'status'  => 'boolean',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+}
