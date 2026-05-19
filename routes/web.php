@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Frontend\ServicesController;
 use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\DentistController;
+
 
 
 
@@ -40,6 +42,9 @@ Route::resource('service-sections', 'ServiceSectionController');
 Route::get('about-page-section', 'AboutPageSectionController@index')->name('about-page-section.index');
     Route::put('about-page-section', 'AboutPageSectionController@update')->name('about-page-section.update');
     
+
+    Route::get('dentist-profile-section', 'DentistProfileSectionController@index')->name('dentist-profile-section.index');
+Route::put('dentist-profile-section', 'DentistProfileSectionController@update')->name('dentist-profile-section.update');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -55,3 +60,6 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 Route::get('/services', [ServicesController::class, 'index'])->name('frontend.services.index');
 
 Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
+
+
+Route::get('/dentist-profile', [DentistController::class, 'index'])->name('frontend.dentist-profile');
