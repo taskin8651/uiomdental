@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Frontend\ServicesController;
+use App\Http\Controllers\Frontend\AboutController;
+
 
 
 
@@ -34,6 +36,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::delete('service-sections/destroy', 'ServiceSectionController@massDestroy')->name('service-sections.massDestroy');
 Route::resource('service-sections', 'ServiceSectionController');
+
+Route::get('about-page-section', 'AboutPageSectionController@index')->name('about-page-section.index');
+    Route::put('about-page-section', 'AboutPageSectionController@update')->name('about-page-section.update');
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -49,3 +54,4 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 
 Route::get('/services', [ServicesController::class, 'index'])->name('frontend.services.index');
 
+Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');

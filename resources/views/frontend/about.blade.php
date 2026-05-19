@@ -2,7 +2,6 @@
 @section('content')
 
 
-
   <!-- ABOUT HERO START -->
   <section class="about-page-hero">
     <div class="about-hero-shape shape-one"></div>
@@ -30,109 +29,267 @@
   </section>
   <!-- ABOUT HERO END -->
 
-  <!-- ABOUT INTRO START -->
-  <section class="about-intro-section">
+  @php
+    $about = $aboutPageSection ?? null;
+
+    $aboutImage = $about && $about->getFirstMediaUrl('about_intro_image')
+        ? $about->getFirstMediaUrl('about_intro_image')
+        : asset('assets/img/clinic.png');
+@endphp
+
+@if($about)
+
+<!-- ABOUT INTRO START -->
+<section class="about-intro-section">
     <div class="container about-intro-grid">
 
-      <div class="about-intro-image">
-        <img src="assets/img/clinic.png" alt="OM Dental Clinic">
+        <div class="about-intro-image">
+            <img src="{{ $aboutImage }}"
+                 alt="{{ $about->intro_title ?: 'OM Dental Clinic' }}">
 
-        <div class="about-experience-card">
-          <strong>10+</strong>
-          <span>Years of Smile Care</span>
-        </div>
-      </div>
+            @if($about->experience_number || $about->experience_text)
+                <div class="about-experience-card">
+                    @if($about->experience_number)
+                        <strong>{{ $about->experience_number }}</strong>
+                    @endif
 
-      <div class="about-intro-content">
-        <span class="section-tag">Who We Are</span>
-
-        <h2>Dedicated to creating healthy and confident smiles.</h2>
-
-        <p>
-          OM Dental Clinic is focused on providing high-quality dental treatment
-          in a clean, comfortable and patient-friendly environment. We believe in
-          accurate diagnosis, honest consultation and safe treatment planning.
-        </p>
-
-        <p>
-          From dental consultation and teeth cleaning to root canal treatment,
-          implants, braces and smile designing, our clinic offers complete dental
-          solutions for families.
-        </p>
-
-        <div class="about-feature-list">
-          <div>
-            <i class="fa-solid fa-user-doctor"></i>
-            <span>Experienced Dentist</span>
-          </div>
-
-          <div>
-            <i class="fa-solid fa-shield-heart"></i>
-            <span>Hygienic Setup</span>
-          </div>
-
-          <div>
-            <i class="fa-solid fa-microscope"></i>
-            <span>Modern Equipment</span>
-          </div>
-
-          <div>
-            <i class="fa-solid fa-heart-pulse"></i>
-            <span>Patient Friendly Care</span>
-          </div>
+                    @if($about->experience_text)
+                        <span>{{ $about->experience_text }}</span>
+                    @endif
+                </div>
+            @endif
         </div>
 
-        <a href="/appointment.html" class="btn btn-primary">
-          Book Appointment
-        </a>
-      </div>
+        <div class="about-intro-content">
+
+            @if($about->intro_tag)
+                <span class="section-tag">{{ $about->intro_tag }}</span>
+            @endif
+
+            @if($about->intro_title)
+                <h2>{{ $about->intro_title }}</h2>
+            @endif
+
+            @if($about->intro_description_1)
+                <p>{{ $about->intro_description_1 }}</p>
+            @endif
+
+            @if($about->intro_description_2)
+                <p>{{ $about->intro_description_2 }}</p>
+            @endif
+
+            <div class="about-feature-list">
+
+                @if($about->feature_1_title)
+                    <div>
+                        <i class="{{ $about->feature_1_icon ?: 'fa-solid fa-user-doctor' }}"></i>
+                        <span>{{ $about->feature_1_title }}</span>
+                    </div>
+                @endif
+
+                @if($about->feature_2_title)
+                    <div>
+                        <i class="{{ $about->feature_2_icon ?: 'fa-solid fa-shield-heart' }}"></i>
+                        <span>{{ $about->feature_2_title }}</span>
+                    </div>
+                @endif
+
+                @if($about->feature_3_title)
+                    <div>
+                        <i class="{{ $about->feature_3_icon ?: 'fa-solid fa-microscope' }}"></i>
+                        <span>{{ $about->feature_3_title }}</span>
+                    </div>
+                @endif
+
+                @if($about->feature_4_title)
+                    <div>
+                        <i class="{{ $about->feature_4_icon ?: 'fa-solid fa-heart-pulse' }}"></i>
+                        <span>{{ $about->feature_4_title }}</span>
+                    </div>
+                @endif
+
+            </div>
+
+            @if($about->intro_button_text && $about->intro_button_url)
+                <a href="{{ $about->intro_button_url }}" class="btn btn-primary">
+                    {{ $about->intro_button_text }}
+                </a>
+            @endif
+
+        </div>
 
     </div>
-  </section>
-  <!-- ABOUT INTRO END -->
+</section>
+<!-- ABOUT INTRO END -->
 
 
-
-  <!-- MISSION VISION START -->
-  <section class="about-mission-section">
+<!-- MISSION VISION START -->
+<section class="about-mission-section">
     <div class="container mission-grid">
 
-      <div class="mission-card">
-        <div class="mission-icon">
-          <i class="fa-solid fa-bullseye"></i>
-        </div>
-        <h3>Our Mission</h3>
-        <p>
-          To provide safe, comfortable and affordable dental care with modern
-          techniques and honest guidance.
-        </p>
-      </div>
+        @if($about->mission_title || $about->mission_description)
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="{{ $about->mission_icon ?: 'fa-solid fa-bullseye' }}"></i>
+                </div>
 
-      <div class="mission-card">
-        <div class="mission-icon">
-          <i class="fa-solid fa-eye"></i>
-        </div>
-        <h3>Our Vision</h3>
-        <p>
-          To become a trusted dental clinic known for ethical treatment,
-          advanced care and long-term patient relationships.
-        </p>
-      </div>
+                @if($about->mission_title)
+                    <h3>{{ $about->mission_title }}</h3>
+                @endif
 
-      <div class="mission-card">
-        <div class="mission-icon">
-          <i class="fa-solid fa-hand-holding-heart"></i>
-        </div>
-        <h3>Care Approach</h3>
-        <p>
-          Every patient receives personal attention, proper explanation and a
-          treatment plan based on comfort and need.
-        </p>
-      </div>
+                @if($about->mission_description)
+                    <p>{{ $about->mission_description }}</p>
+                @endif
+            </div>
+        @endif
+
+        @if($about->vision_title || $about->vision_description)
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="{{ $about->vision_icon ?: 'fa-solid fa-eye' }}"></i>
+                </div>
+
+                @if($about->vision_title)
+                    <h3>{{ $about->vision_title }}</h3>
+                @endif
+
+                @if($about->vision_description)
+                    <p>{{ $about->vision_description }}</p>
+                @endif
+            </div>
+        @endif
+
+        @if($about->approach_title || $about->approach_description)
+            <div class="mission-card">
+                <div class="mission-icon">
+                    <i class="{{ $about->approach_icon ?: 'fa-solid fa-hand-holding-heart' }}"></i>
+                </div>
+
+                @if($about->approach_title)
+                    <h3>{{ $about->approach_title }}</h3>
+                @endif
+
+                @if($about->approach_description)
+                    <p>{{ $about->approach_description }}</p>
+                @endif
+            </div>
+        @endif
 
     </div>
-  </section>
-  <!-- MISSION VISION END -->
+</section>
+<!-- MISSION VISION END -->
+
+@else
+
+<!-- ABOUT INTRO START -->
+<section class="about-intro-section">
+    <div class="container about-intro-grid">
+
+        <div class="about-intro-image">
+            <img src="{{ asset('assets/img/clinic.png') }}" alt="OM Dental Clinic">
+
+            <div class="about-experience-card">
+                <strong>10+</strong>
+                <span>Years of Smile Care</span>
+            </div>
+        </div>
+
+        <div class="about-intro-content">
+            <span class="section-tag">Who We Are</span>
+
+            <h2>Dedicated to creating healthy and confident smiles.</h2>
+
+            <p>
+                OM Dental Clinic is focused on providing high-quality dental treatment
+                in a clean, comfortable and patient-friendly environment.
+            </p>
+
+            <p>
+                From dental consultation and teeth cleaning to root canal treatment,
+                implants, braces and smile designing, our clinic offers complete dental
+                solutions for families.
+            </p>
+
+            <div class="about-feature-list">
+                <div>
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Experienced Dentist</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <span>Hygienic Setup</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-microscope"></i>
+                    <span>Modern Equipment</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <span>Patient Friendly Care</span>
+                </div>
+            </div>
+
+            <a href="/appointment.html" class="btn btn-primary">
+                Book Appointment
+            </a>
+        </div>
+
+    </div>
+</section>
+<!-- ABOUT INTRO END -->
+
+
+<!-- MISSION VISION START -->
+<section class="about-mission-section">
+    <div class="container mission-grid">
+
+        <div class="mission-card">
+            <div class="mission-icon">
+                <i class="fa-solid fa-bullseye"></i>
+            </div>
+
+            <h3>Our Mission</h3>
+
+            <p>
+                To provide safe, comfortable and affordable dental care with modern
+                techniques and honest guidance.
+            </p>
+        </div>
+
+        <div class="mission-card">
+            <div class="mission-icon">
+                <i class="fa-solid fa-eye"></i>
+            </div>
+
+            <h3>Our Vision</h3>
+
+            <p>
+                To become a trusted dental clinic known for ethical treatment,
+                advanced care and long-term patient relationships.
+            </p>
+        </div>
+
+        <div class="mission-card">
+            <div class="mission-icon">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+
+            <h3>Care Approach</h3>
+
+            <p>
+                Every patient receives personal attention, proper explanation and a
+                treatment plan based on comfort and need.
+            </p>
+        </div>
+
+    </div>
+</section>
+<!-- MISSION VISION END -->
+
+@endif
 
 
   <!-- FACILITIES START -->
@@ -257,64 +414,4 @@
   </section>
   <!-- CTA END -->
 
-
-  <!-- FOOTER START -->
-  <footer class="footer">
-    <div class="container footer-grid">
-
-      <div>
-        <h3>OM Dental Clinic</h3>
-        <p>
-          Professional dental care for consultation, cleaning, root canal,
-          implants, braces, smile designing and emergency treatment.
-        </p>
-      </div>
-
-      <div>
-        <h4>Quick Links</h4>
-        <a href="/about.html">About Clinic</a>
-        <a href="/dentist-profile.html">Dentist Profile</a>
-        <a href="/services.html">Services</a>
-        <a href="/appointment.html">Book Appointment</a>
-      </div>
-
-      <div>
-        <h4>Services</h4>
-        <a href="#">Root Canal</a>
-        <a href="#">Teeth Cleaning</a>
-        <a href="#">Dental Implants</a>
-        <a href="#">Smile Designing</a>
-      </div>
-
-      <div>
-        <h4>Contact</h4>
-        <p><i class="fa-solid fa-phone"></i> +91 99999 99999</p>
-        <p><i class="fa-solid fa-envelope"></i> info@omdentalclinic.com</p>
-        <p><i class="fa-solid fa-location-dot"></i> Your Clinic Address</p>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2026 OM Dental Clinic. All Rights Reserved.</p>
-    </div>
-  </footer>
-  <!-- FOOTER END -->
-
-
-  <!-- FLOATING BUTTONS START -->
-  <div class="floating-actions">
-    <a href="https://wa.me/919999999999?text=Hi%20OM%20Dental%20Clinic%2C%20I%20want%20to%20book%20an%20appointment." class="float-btn whatsapp" target="_blank" aria-label="WhatsApp">
-      <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <a href="/tel:+919999999999" class="float-btn call" aria-label="Call">
-      <i class="fa-solid fa-phone"></i>
-    </a>
-  </div>
-  <!-- FLOATING BUTTONS END -->
-
-
-  <script src="assets/js/main.js"></script>
-</body>
-</html>
+@endsection
