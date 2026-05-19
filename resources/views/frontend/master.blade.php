@@ -1,15 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 
+@php
+  $websiteSetting = \App\Models\WebsiteSetting::with('media')->first();
+  $siteName = $websiteSetting->site_name ?? 'OM Dental Clinic';
+  $siteTagline = $websiteSetting->site_tagline ?? 'Best Dental Care & Appointment Booking';
+  $metaTitle = $websiteSetting->meta_title ?? 'OM Dental Clinic | Best Dental Care & Appointment Booking';
+  $metaDescription = $websiteSetting->meta_description ?? 'OM Dental Clinic provides professional dental care, root canal, teeth cleaning, implants, braces, smile designing and emergency dental services.';
+  $metaKeywords = $websiteSetting->meta_keywords ?? '';
+  $ogTitle = $websiteSetting->og_title ?? $metaTitle;
+  $ogDescription = $websiteSetting->og_description ?? $metaDescription;
+  $logoUrl = $websiteSetting?->getFirstMediaUrl('site_logo') ?: asset('assets/img/logo.png');
+  $faviconUrl = $websiteSetting?->getFirstMediaUrl('site_favicon') ?: asset('favicon.ico');
+  $ogImageUrl = $websiteSetting?->getFirstMediaUrl('og_image');
+  $contactNumber = $websiteSetting->contact_number ?? '+91 99999 99999';
+  $contactEmail = $websiteSetting->contact_email ?? 'info@omdentalclinic.com';
+  $whatsappNumber = $websiteSetting->whatsapp_number ?? '919999999999';
+  $callLink = 'tel:' . preg_replace('/\s+/', '', $contactNumber);
+  $whatsappLink = 'https://wa.me/' . preg_replace('/\D+/', '', $whatsappNumber);
+@endphp
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>OM Dental Clinic | Best Dental Care & Appointment Booking</title>
-  <meta name="description"
-    content="OM Dental Clinic provides professional dental care, root canal, teeth cleaning, implants, braces, smile designing and emergency dental services." />
+  <title>{{ $metaTitle }}</title>
+  <meta name="description" content="{{ $metaDescription }}" />
+  @if($metaKeywords)
+    <meta name="keywords" content="{{ $metaKeywords }}" />
+  @endif
+  <meta property="og:title" content="{{ $ogTitle }}" />
+  <meta property="og:description" content="{{ $ogDescription }}" />
+  @if($ogImageUrl)
+    <meta property="og:image" content="{{ $ogImageUrl }}" />
+  @endif
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="{{ $faviconUrl }}" />
 
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,8 +52,8 @@
   <header class="site-header" id="siteHeader">
     <div class="container header-wrapper">
 
-      <a href="/index.html" class="logo-link" aria-label="OM Dental Clinic Home">
-        <img src="assets/img/logo.png" alt="OM Dental Clinic Logo" class="logo" />
+      <a href="/" class="logo-link" aria-label="{{ $siteName }} Home">
+        <img src="{{ $logoUrl }}" alt="{{ $siteName }} Logo" class="logo" />
       </a>
 
       <nav class="navbar" id="navbar">
@@ -40,7 +68,7 @@
       </nav>
 
       <div class="header-actions">
-        <a href="tel:+919999999999" class="header-call">
+        <a href="{{ $callLink }}" class="header-call">
           <i class="fa-solid fa-phone"></i>
           <span>Call Now</span>
         </a>
@@ -69,10 +97,9 @@
     <div class="container footer-grid">
 
       <div>
-        <h3>OM Dental Clinic</h3>
+        <h3>{{ $siteName }}</h3>
         <p>
-          Professional dental care for consultation, cleaning, root canal,
-          implants, braces, smile designing and emergency treatment.
+          {{ $siteTagline }}
         </p>
       </div>
 
@@ -94,15 +121,15 @@
 
       <div>
         <h4>Contact</h4>
-        <p><i class="fa-solid fa-phone"></i> +91 99999 99999</p>
-        <p><i class="fa-solid fa-envelope"></i> info@omdentalclinic.com</p>
+        <p><i class="fa-solid fa-phone"></i> {{ $contactNumber }}</p>
+        <p><i class="fa-solid fa-envelope"></i> {{ $contactEmail }}</p>
         <p><i class="fa-solid fa-location-dot"></i> Your Clinic Address</p>
       </div>
 
     </div>
 
     <div class="footer-bottom">
-      <p>© 2026 OM Dental Clinic. All Rights Reserved.</p>
+      <p>© 2026 {{ $siteName }}. All Rights Reserved.</p>
     </div>
   </footer>
   <!-- FOOTER END -->
@@ -110,19 +137,19 @@
 
   <!-- FLOATING BUTTONS START -->
   <div class="floating-actions">
-    <a href="https://wa.me/919999999999?text=Hi%20OM%20Dental%20Clinic%2C%20I%20want%20to%20book%20an%20appointment."
+    <a href="{{ $whatsappLink }}?text=Hi%20{{ urlencode($siteName) }}%2C%20I%20want%20to%20book%20an%20appointment."
       class="float-btn whatsapp" target="_blank" aria-label="WhatsApp">
       <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <a href="tel:+919999999999" class="float-btn call" aria-label="Call">
+    <a href="{{ $callLink }}" class="float-btn call" aria-label="Call">
       <i class="fa-solid fa-phone"></i>
     </a>
   </div>
   <!-- FLOATING BUTTONS END -->
 
 
-  <script src="assets/js/main.js"></script>
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
 </html>

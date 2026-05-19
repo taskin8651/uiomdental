@@ -106,6 +106,38 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 24,
                 'title' => 'profile_password_edit',
             ],
+            [
+                'id'    => 25,
+                'title' => 'contact_enquiry_access',
+            ],
+            [
+                'id'    => 26,
+                'title' => 'contact_enquiry_show',
+            ],
+            [
+                'id'    => 27,
+                'title' => 'contact_enquiry_delete',
+            ],
+            [
+                'id'    => 28,
+                'title' => 'appointment_request_access',
+            ],
+            [
+                'id'    => 29,
+                'title' => 'appointment_request_show',
+            ],
+            [
+                'id'    => 30,
+                'title' => 'appointment_request_delete',
+            ],
+            [
+                'id'    => 31,
+                'title' => 'website_setting_access',
+            ],
+            [
+                'id'    => 32,
+                'title' => 'website_setting_edit',
+            ],
         ];
 
         Permission::insert($permissions);

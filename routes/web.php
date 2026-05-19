@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\DentistController;
 use App\Http\Controllers\Frontend\GalleryController;
 use App\Http\Controllers\Frontend\TestimonialController;
+use App\Http\Controllers\Frontend\EnquiryController;
 
 use App\Http\Controllers\Frontend\FaqController;
 
@@ -66,6 +67,21 @@ Route::resource('testimonials', 'TestimonialController');
 
 Route::delete('faqs/destroy', 'FaqController@massDestroy')->name('faqs.massDestroy');
     Route::resource('faqs', 'FaqController');
+
+Route::delete('contact-enquiries/destroy', 'ContactEnquiryController@massDestroy')->name('contact-enquiries.massDestroy');
+Route::resource('contact-enquiries', 'ContactEnquiryController', [
+    'only'       => ['index', 'show', 'destroy'],
+    'parameters' => ['contact-enquiries' => 'contactEnquiry'],
+]);
+
+Route::delete('appointment-requests/destroy', 'AppointmentRequestController@massDestroy')->name('appointment-requests.massDestroy');
+Route::resource('appointment-requests', 'AppointmentRequestController', [
+    'only'       => ['index', 'show', 'destroy'],
+    'parameters' => ['appointment-requests' => 'appointmentRequest'],
+]);
+
+Route::get('website-settings', 'WebsiteSettingController@index')->name('website-settings.index');
+Route::put('website-settings', 'WebsiteSettingController@update')->name('website-settings.update');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -92,3 +108,10 @@ Route::get('/testimonials', [TestimonialController::class, 'index'])->name('fron
 
 
 Route::get('/faq', [FaqController::class, 'index'])->name('frontend.faq');
+
+Route::view('/contact', 'frontend.contact')->name('frontend.contact');
+Route::view('/appointment', 'frontend.appointment')->name('frontend.appointment');
+Route::view('/contact.html', 'frontend.contact');
+Route::view('/appointment.html', 'frontend.appointment');
+Route::post('/contact-enquiry', [EnquiryController::class, 'storeContact'])->name('contact.enquiry.store');
+Route::post('/appointment-request', [EnquiryController::class, 'storeAppointment'])->name('appointment.request.store');
