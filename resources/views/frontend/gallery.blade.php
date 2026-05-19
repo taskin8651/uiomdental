@@ -205,35 +205,79 @@
 
       <div class="gallery-ba-grid">
 
-        <div class="gallery-ba-card">
-          <div class="gallery-ba-images">
-            <div>
-              <span>Before</span>
-              <img src="assets/img/before_1.png" alt="Before Teeth Cleaning">
-            </div>
-            <div>
-              <span>After</span>
-              <img src="assets/img/after_1.png" alt="After Teeth Cleaning">
-            </div>
-          </div>
-          <h3>Teeth Cleaning Result</h3>
-          <p>Cleaner, brighter and healthier-looking teeth after professional scaling.</p>
-        </div>
+      @if(isset($beforeAfterGalleries) && $beforeAfterGalleries->count())
+
+    @foreach($beforeAfterGalleries as $beforeAfterGallery)
+        @php
+            $beforeImage = $beforeAfterGallery->getFirstMediaUrl('before_image')
+                ?: asset('assets/img/before_1.png');
+
+            $afterImage = $beforeAfterGallery->getFirstMediaUrl('after_image')
+                ?: asset('assets/img/after_1.png');
+        @endphp
 
         <div class="gallery-ba-card">
-          <div class="gallery-ba-images">
-            <div>
-              <span>Before</span>
-              <img src="assets/img/before_2.png" alt="Before Smile Designing">
+            <div class="gallery-ba-images">
+                <div>
+                    <span>{{ $beforeAfterGallery->before_label ?: 'Before' }}</span>
+                    <img src="{{ $beforeImage }}"
+                         alt="{{ $beforeAfterGallery->before_alt ?: $beforeAfterGallery->title }}">
+                </div>
+
+                <div>
+                    <span>{{ $beforeAfterGallery->after_label ?: 'After' }}</span>
+                    <img src="{{ $afterImage }}"
+                         alt="{{ $beforeAfterGallery->after_alt ?: $beforeAfterGallery->title }}">
+                </div>
             </div>
-            <div>
-              <span>After</span>
-              <img src="assets/img/after_2.png" alt="After Smile Designing">
-            </div>
-          </div>
-          <h3>Smile Designing Result</h3>
-          <p>Natural smile enhancement with careful planning and cosmetic care.</p>
+
+            @if($beforeAfterGallery->title)
+                <h3>{{ $beforeAfterGallery->title }}</h3>
+            @endif
+
+            @if($beforeAfterGallery->description)
+                <p>{{ $beforeAfterGallery->description }}</p>
+            @endif
         </div>
+    @endforeach
+
+@else
+
+    <div class="gallery-ba-card">
+        <div class="gallery-ba-images">
+            <div>
+                <span>Before</span>
+                <img src="{{ asset('assets/img/before_1.png') }}" alt="Before Teeth Cleaning">
+            </div>
+
+            <div>
+                <span>After</span>
+                <img src="{{ asset('assets/img/after_1.png') }}" alt="After Teeth Cleaning">
+            </div>
+        </div>
+
+        <h3>Teeth Cleaning Result</h3>
+        <p>Cleaner, brighter and healthier-looking teeth after professional scaling.</p>
+    </div>
+
+    <div class="gallery-ba-card">
+        <div class="gallery-ba-images">
+            <div>
+                <span>Before</span>
+                <img src="{{ asset('assets/img/before_2.png') }}" alt="Before Smile Designing">
+            </div>
+
+            <div>
+                <span>After</span>
+                <img src="{{ asset('assets/img/after_2.png') }}" alt="After Smile Designing">
+            </div>
+        </div>
+
+        <h3>Smile Designing Result</h3>
+        <p>Natural smile enhancement with careful planning and cosmetic care.</p>
+    </div>
+
+@endif
 
       </div>
 

@@ -241,7 +241,8 @@
 @can('gallery_category_access')
     @php
         $galleryActive = request()->is('admin/gallery-categories*')
-            || request()->is('admin/gallery-items*');
+            || request()->is('admin/gallery-items*')
+            || request()->is('admin/before-after-galleries*');
     @endphp
 
     <div x-data="{ open: {{ $galleryActive ? 'true' : 'false' }} }">
@@ -282,6 +283,14 @@
                    class="sub-link {{ request()->is('admin/gallery-items*') ? 'active' : '' }}">
                     <i class="fas fa-image"></i>
                     Gallery Items
+                </a>
+            @endcan
+
+            @can('before_after_gallery_access')
+                <a href="{{ route('admin.before-after-galleries.index') }}"
+                   class="sub-link {{ request()->is('admin/before-after-galleries*') ? 'active' : '' }}">
+                    <i class="fas fa-images"></i>
+                    Before After Gallery
                 </a>
             @endcan
 
