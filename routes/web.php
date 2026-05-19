@@ -3,6 +3,8 @@
 use App\Http\Controllers\Frontend\ServicesController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\DentistController;
+use App\Http\Controllers\Frontend\GalleryController;
+
 
 
 
@@ -45,6 +47,12 @@ Route::get('about-page-section', 'AboutPageSectionController@index')->name('abou
 
     Route::get('dentist-profile-section', 'DentistProfileSectionController@index')->name('dentist-profile-section.index');
 Route::put('dentist-profile-section', 'DentistProfileSectionController@update')->name('dentist-profile-section.update');
+
+Route::delete('gallery-categories/destroy', 'GalleryCategoryController@massDestroy')->name('gallery-categories.massDestroy');
+Route::resource('gallery-categories', 'GalleryCategoryController');
+
+Route::delete('gallery-items/destroy', 'GalleryItemController@massDestroy')->name('gallery-items.massDestroy');
+Route::resource('gallery-items', 'GalleryItemController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -63,3 +71,5 @@ Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
 
 
 Route::get('/dentist-profile', [DentistController::class, 'index'])->name('frontend.dentist-profile');
+
+Route::get('/gallery', [GalleryController::class, 'index'])->name('frontend.gallery');
