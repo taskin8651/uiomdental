@@ -119,7 +119,7 @@
       <div>
         <h4>Services</h4>
         @forelse($footerServices as $footerService)
-          <a href="{{ route('frontend.services.index') }}">{{ $footerService->title }}</a>
+          <a href="{{ route('frontend.services.index') }}">{{ \Illuminate\Support\Str::limit($footerService->title, 24) }}</a>
         @empty
           <a href="{{ route('frontend.services.index') }}">Root Canal</a>
           <a href="{{ route('frontend.services.index') }}">Teeth Cleaning</a>
