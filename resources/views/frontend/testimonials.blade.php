@@ -117,167 +117,74 @@
 
       <div class="testimonials-page-grid">
 
-        <div class="testimonial-page-card featured-review">
-          <div class="quote-icon">
+       @if(isset($testimonials) && $testimonials->count())
+
+    @foreach($testimonials as $testimonial)
+        <div class="testimonial-page-card {{ $testimonial->is_featured ? 'featured-review' : '' }}">
+            <div class="quote-icon">
+                <i class="fa-solid fa-quote-left"></i>
+            </div>
+
+            <div class="review-stars">
+                @for($i = 1; $i <= 5; $i++)
+                    <i class="{{ $i <= $testimonial->rating ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
+                @endfor
+            </div>
+
+            @if($testimonial->review_text)
+                <p>
+                    “{{ $testimonial->review_text }}”
+                </p>
+            @endif
+
+            <div class="review-author">
+                <div class="author-avatar">
+                    {{ $testimonial->avatar_letter ?: strtoupper(substr($testimonial->customer_name, 0, 1)) }}
+                </div>
+
+                <div>
+                    @if($testimonial->customer_name)
+                        <h4>{{ $testimonial->customer_name }}</h4>
+                    @endif
+
+                    @if($testimonial->customer_type)
+                        <span>{{ $testimonial->customer_type }}</span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    @endforeach
+
+@else
+
+    <div class="testimonial-page-card featured-review">
+        <div class="quote-icon">
             <i class="fa-solid fa-quote-left"></i>
-          </div>
+        </div>
 
-          <div class="review-stars">
+        <div class="review-stars">
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
-          </div>
+        </div>
 
-          <p>
+        <p>
             “Very clean clinic and doctor explained everything properly. My root
             canal treatment was comfortable and the staff was very supportive.”
-          </p>
+        </p>
 
-          <div class="review-author">
+        <div class="review-author">
             <div class="author-avatar">R</div>
             <div>
-              <h4>Rahul Kumar</h4>
-              <span>Root Canal Patient</span>
+                <h4>Rahul Kumar</h4>
+                <span>Root Canal Patient</span>
             </div>
-          </div>
         </div>
+    </div>
 
-        <div class="testimonial-page-card">
-          <div class="quote-icon">
-            <i class="fa-solid fa-quote-left"></i>
-          </div>
-
-          <div class="review-stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-
-          <p>
-            “Appointment booking was easy and the dentist gave a clear treatment
-            plan. I felt comfortable during the entire visit.”
-          </p>
-
-          <div class="review-author">
-            <div class="author-avatar">P</div>
-            <div>
-              <h4>Priya Singh</h4>
-              <span>Dental Consultation</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-page-card">
-          <div class="quote-icon">
-            <i class="fa-solid fa-quote-left"></i>
-          </div>
-
-          <div class="review-stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-
-          <p>
-            “I visited for teeth cleaning. The clinic was hygienic and the
-            treatment was smooth. My teeth feel much cleaner now.”
-          </p>
-
-          <div class="review-author">
-            <div class="author-avatar">A</div>
-            <div>
-              <h4>Anjali Verma</h4>
-              <span>Teeth Cleaning Patient</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-page-card">
-          <div class="quote-icon">
-            <i class="fa-solid fa-quote-left"></i>
-          </div>
-
-          <div class="review-stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-
-          <p>
-            “My smile designing result looks natural and beautiful. The doctor
-            listened carefully and explained every step.”
-          </p>
-
-          <div class="review-author">
-            <div class="author-avatar">N</div>
-            <div>
-              <h4>Neha Sharma</h4>
-              <span>Smile Designing Patient</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-page-card">
-          <div class="quote-icon">
-            <i class="fa-solid fa-quote-left"></i>
-          </div>
-
-          <div class="review-stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-
-          <p>
-            “I had tooth pain and got quick support. The dentist explained the
-            reason and treated it with proper care.”
-          </p>
-
-          <div class="review-author">
-            <div class="author-avatar">S</div>
-            <div>
-              <h4>Sandeep Gupta</h4>
-              <span>Emergency Dental Care</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-page-card">
-          <div class="quote-icon">
-            <i class="fa-solid fa-quote-left"></i>
-          </div>
-
-          <div class="review-stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-
-          <p>
-            “The clinic environment is very neat and the staff behaviour is good.
-            I recommend OM Dental Clinic for family dental care.”
-          </p>
-
-          <div class="review-author">
-            <div class="author-avatar">M</div>
-            <div>
-              <h4>Meera Kumari</h4>
-              <span>Family Dental Care</span>
-            </div>
-          </div>
-        </div>
+@endif
 
       </div>
 

@@ -4,6 +4,8 @@ use App\Http\Controllers\Frontend\ServicesController;
 use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\DentistController;
 use App\Http\Controllers\Frontend\GalleryController;
+use App\Http\Controllers\Frontend\TestimonialController;
+
 
 
 
@@ -57,7 +59,8 @@ Route::resource('gallery-items', 'GalleryItemController');
 Route::delete('before-after-galleries/destroy', 'BeforeAfterGalleryController@massDestroy')->name('before-after-galleries.massDestroy');
 Route::resource('before-after-galleries', 'BeforeAfterGalleryController');
 
-
+Route::delete('testimonials/destroy', 'TestimonialController@massDestroy')->name('testimonials.massDestroy');
+Route::resource('testimonials', 'TestimonialController');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
@@ -78,3 +81,6 @@ Route::get('/about', [AboutController::class, 'index'])->name('frontend.about');
 Route::get('/dentist-profile', [DentistController::class, 'index'])->name('frontend.dentist-profile');
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('frontend.gallery');
+
+
+Route::get('/testimonials', [TestimonialController::class, 'index'])->name('frontend.testimonials');
